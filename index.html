@@ -101,5 +101,41 @@
     <button type="submit">পাঠিয়ে দিন</button>
   </form>
 </section>
-  
+  <section class="contact">
+  <h2>যোগাযোগ করুন</h2>
+  <form id="contactForm" action="https://formspree.io/f/mdkebvze" method="POST">
+    <input type="text" name="name" placeholder="আপনার নাম" required />
+    <input type="email" name="email" placeholder="আপনার ইমেইল" required />
+    <textarea name="message" rows="5" placeholder="বার্তা লিখুন..." required></textarea>
+    <button type="submit">পাঠিয়ে দিন</button>
+    <p id="formMsg" style="display:none; color: green; margin-top: 10px;">আপনার বার্তা সফলভাবে পাঠানো হয়েছে!</p>
+  </form>
+</section>
+
+<script>
+  const form = document.getElementById('contactForm');
+  const msg = document.getElementById('formMsg');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const data = new FormData(form);
+
+    fetch(form.action, {
+      method: "POST",
+      body: data,
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(response => {
+      if (response.ok) {
+        msg.style.display = "block";
+        form.reset();
+      } else {
+        msg.textContent = "কিছু ভুল হয়েছে! আবার চেষ্টা করুন।";
+        msg.style.color = "red";
+        msg.style.display = "block";
+      }
+    });
+  });
+          </script>
 </html>
